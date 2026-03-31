@@ -13,10 +13,10 @@ def hilo_usuario(socket_cliente, direccion, instancia_compartida):
             username = mensaje[5:].strip()
             with instancia_compartida.lock:
                 instancia_compartida.users.append(username)
-            socket_cliente.send(f"Usuario Registrado con Nick {username}".encode('utf-8'))
+            socket_cliente.send(f"TCP_server: Usuario Registrado con Nick {username}".encode('utf-8'))
             
         else:
-            socket_cliente.send("Para registrarte debes enviar NICK <tu_nombre>\n".encode('utf-8'))
+            socket_cliente.send("TCP_server:  Para registrarte debes enviar NICK <tu_nombre>\n".encode('utf-8'))
             socket_cliente.close()
             return
 
@@ -27,7 +27,7 @@ def hilo_usuario(socket_cliente, direccion, instancia_compartida):
                 return
 
     except Exception as e:
-        print(f"[TCP] Error inesperado: {e}")
+        print(f"TCP_server: Error inesperado: {e}")
         return
 
     finally:
@@ -38,9 +38,9 @@ def hilo_usuario(socket_cliente, direccion, instancia_compartida):
         socket_cliente.close()
 
 def tcp_init(instancia_compartida):
-    print("Iniciando el tcp")
     TCP_IP = "127.0.0.1"
     TCP_PORT = 50002
+    print(f"TCP_server: Iniciando el tcp en el puerto {TCP_PORT} e ip {TCP_IP}")
     socket_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     socket_server.bind((TCP_IP, TCP_PORT))
     socket_server.listen()
