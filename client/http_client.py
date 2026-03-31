@@ -1,8 +1,8 @@
 import requests
 import json
 
-def cliente_interactivo():
-    print("--- Cliente de Consulta HTTP (Mos Eisley) ---")
+def http_client_init():
+    print("HTTP_Client: Iniciando cliente HTTP")
 
     url_base = input("Ingrese la URL del servidor: ").strip()
     
@@ -27,20 +27,20 @@ def cliente_interactivo():
         url = f"{url_base}/{comando}"
         
         try:
-            response = requests.get(url, headers=headers)
+            respuesta = requests.get(url, headers=headers)
             
-            print(f"Estado: {response.status_code}")
+            print(f"Estado: {respuesta.status_code}")
             
             try:
-                data = response.json()
+                data = respuesta.json()
                 print("Datos recibidos:")
                 print(json.dumps(data, indent=4, ensure_ascii=False))
             except json.JSONDecodeError:
                 print("Error: La respuesta no es JSON.")
-                print(f"Contenido: {response.text}")
+                print(f"Contenido: {respuesta.text}")
                 
         except requests.exceptions.RequestException as e:
             print(f"Error de conexión: {e}")
 
 if __name__ == "__main__":
-    cliente_interactivo()
+    http_client_init()
