@@ -1,5 +1,6 @@
 import socket
 import threading
+import os
 
 def escuchar_servidor(socket_cliente):
     while True:
@@ -7,17 +8,17 @@ def escuchar_servidor(socket_cliente):
             mensaje = socket_cliente.recv(1024)
             if not mensaje:
                 print("Se perdio la conexion con el servidor")
-                break
-            print(f"{mensaje.decode('utf-8').strip()}\n")
+                os._exit(0)
+            print(f"{mensaje.decode('utf-8').strip()}")
             if mensaje.decode('utf-8').strip().startswith("Se finalizo "):
-                break
+                os._exit(0)
         except Exception as e:
             print(f"Error de conexion: {e}")
-            break
+            os._exit(0)
 
 def iniciar_cliente():
     IP = "0.tcp.sa.ngrok.io"
-    PUERTO = 17435
+    PUERTO = 14239
     cliente = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
         cliente.connect((IP, PUERTO))
@@ -43,8 +44,8 @@ def iniciar_cliente():
         except KeyboardInterrupt as e:
             cliente.send("DISCONNECT".encode('utf-8'))
             break
-    print("\nDesconectando..")
-    cliente.close
+    print("Desconectando..")
+    cliente.close()
 
 if __name__ == "__main__":
     iniciar_cliente()

@@ -23,6 +23,7 @@ def comandoRecibido(comando, username, instancia_compartida):
             })
         enviarLog("MSG", f"{username}: {mensaje}")
         broadcast(mensaje, username, instancia_compartida)
+
         return True
     elif comando == "DISCONNECT":
         return False
@@ -31,7 +32,7 @@ def comandoRecibido(comando, username, instancia_compartida):
         return False
 
 
-def hilo_usuario(socket_cliente, direccion, instancia_compartida):
+def hilo_usuario(socket_cliente, instancia_compartida):
     username = None
     try:
         mensaje = socket_cliente.recv(1024)
@@ -61,6 +62,7 @@ def hilo_usuario(socket_cliente, direccion, instancia_compartida):
             estado = comandoRecibido(comando, username, instancia_compartida)
             if not estado:
                 if comando == "DISCONNECT":
+                    socket_cliente.send("Se finalizo la conexion".encode('utf-8'))
                     break
                 else:
                     socket_cliente.send("Comando no reconocido".encode('utf-8'))
@@ -88,7 +90,7 @@ def tcp_init(instancia_compartida):
     socket_server.listen()
     while True:
         socket_cliente, direccion = socket_server.accept()
-        thread = threading.Thread(target=hilo_usuario, args=(socket_cliente, direccion, instancia_compartida), daemon=True)
+        thread = threading.Thread(target=hilo_usuario, args=(socket_cliente, instancia_compartida), daemon=True)
         thread.start()
     
 
