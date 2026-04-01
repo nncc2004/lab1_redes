@@ -80,7 +80,7 @@ def hilo_usuario(socket_cliente, direccion, instancia_compartida):
         socket_cliente.close()
 
 def tcp_init(instancia_compartida):
-    TCP_IP = "127.0.0.1"
+    TCP_IP = "0.0.0.0"
     TCP_PORT = 50004
     print(f"TCP_server: Iniciando el tcp en el puerto {TCP_PORT} e ip {TCP_IP}")
     socket_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

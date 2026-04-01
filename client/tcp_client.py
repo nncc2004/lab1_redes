@@ -16,8 +16,8 @@ def escuchar_servidor(socket_cliente):
             break
 
 def iniciar_cliente():
-    IP = "127.0.0.1"
-    PUERTO = 50004
+    IP = "0.tcp.sa.ngrok.io"
+    PUERTO = 17435
     cliente = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
         cliente.connect((IP, PUERTO))

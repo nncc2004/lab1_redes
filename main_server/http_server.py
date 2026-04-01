@@ -68,7 +68,7 @@ def poblar_memoria_test(instancia_compartida):
 
 
 def http_init(instancia_compartida):
-    HTTP_IP = "127.0.0.1"
+    HTTP_IP = "0.0.0.0"
     HTTP_PORT = 50000
     print(f"HTTP_server: Iniciando el http_server en el puerto {HTTP_PORT} e ip {HTTP_IP}")
     
