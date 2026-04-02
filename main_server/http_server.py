@@ -1,18 +1,3 @@
-'''
-Notas:
-Implementarse utilizando http.server de Python
-Sólo de lectura del sistema
-
-Consultas HTTP compatibles:
-- Consulta de historial de mensajes
-    GET /history Historial de los  ́ultimos N mensajes de la sala
-
-- Consulta de usuarios conectados
-    GET /users Lista de todos los usuarios conectados actualmente
-
-- Error 404 para cualquier otra consulta
-'''
-
 from http.server import HTTPServer
 from http.server import BaseHTTPRequestHandler
 import json
@@ -41,7 +26,7 @@ class RequestHandler(BaseHTTPRequestHandler):
             self.respuesta_json(datos, 200)
             enviarLog("API HTTP", f"{timestamp}: Se ha solicitado el listado de usuarios conectados por HTTP.")
         else:
-            self.respuesta_json({"error": "Ruta no encontrada. Recuerda sólo usar /history y /users"}, 404)
+            self.respuesta_json({"error 404": "Ruta no encontrada. Recuerda sólo usar /history y /users"}, 404)
             enviarLog("ERROR", f"{timestamp}: Se ha solicitado con un comando incorrecto por HTTP. Se ha respondido con 404.")
 
     def respuesta_json(self, contenido, codigo):
@@ -53,7 +38,17 @@ class RequestHandler(BaseHTTPRequestHandler):
         self.end_headers()
         
         self.wfile.write(respuetsa)
+
+    def responder_400(self):
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        enviarLog("ERROR", f"{timestamp}: Se ha solicitado erróneamente una petición HTTP. Se ha respondido con 400.")
+        self.respuesta_json({"error 400":"Sólo se puede usar solicitudes tipo GET"}, 400)
     
+    def do_POST(self): self.responder_400()
+    def do_PUT(self): self.responder_400()
+    def do_DELETE(self): self.responder_400()
+    def do_HEAD(self): self.responder_400()
+    def do_PATCH(self): self.responder_400()
 
 
 def poblar_memoria_test(instancia_compartida):
@@ -77,7 +72,7 @@ def http_init(instancia_compartida):
     HTTP_PORT = 50000
     print(f"HTTP_server: Iniciando el http_server en el puerto {HTTP_PORT} e ip {HTTP_IP}")
     
-    #poblar_memoria_test(instancia_compartida)
+    poblar_memoria_test(instancia_compartida)
     
     handler_factory = lambda *args, **kwargs: RequestHandler(*args, instancia_compartida=instancia_compartida, **kwargs)
 
