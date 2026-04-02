@@ -30,3 +30,7 @@ PROTOCOLO DE COMANDOS PARA CLIENTE API HTTP:
 
 PROTOCOLO PARA INICIAR EL NGROK:
     ngrok start --config ./ngrok.yml --all
+
+EXPLICACIÓN VIDEO:
+    En el video se ven 4 consolas. La de la esquina superior izquierda corresponde al mainserver, es decir, al tcp_server y HTTP_server. El de la esquina superior derecha corresponde al udp_server, y se puede ver cómo se van a notando los logs que envía el mainserver. En le esquina  inferior izquierda está el cliente HTTP, que hace consultas a la API sobre los usuarios conectados y sobre el historial de mensajes. Por último, el de la esquina inferior derecha corresponde al cliente tcp, quien se coencta al chat, y manda y recibe mensajes. 
+    Cabe destacar que al inicio se muestra también la terminal en la que se inicia el NGROK con los dos canales.
