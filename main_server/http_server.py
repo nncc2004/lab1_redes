@@ -72,7 +72,7 @@ def http_init(instancia_compartida):
     HTTP_PORT = 50000
     print(f"HTTP_server: Iniciando el http_server en el puerto {HTTP_PORT} e ip {HTTP_IP}")
     
-    poblar_memoria_test(instancia_compartida)
+    #poblar_memoria_test(instancia_compartida)
     
     handler_factory = lambda *args, **kwargs: RequestHandler(*args, instancia_compartida=instancia_compartida, **kwargs)
 
