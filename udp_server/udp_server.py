@@ -22,6 +22,8 @@ def clasificarEvento(mensaje):
         return "CONNECT", VERDE
     elif "MSG" in msgUpper:
         return "MSG", AZUL
+    elif "API HTTP" in msgUpper:
+        return "API HTTP", AZUL
     else:
         return "SIN_CLASIFICAR", RESET
 

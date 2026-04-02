@@ -16,6 +16,8 @@ Consultas HTTP compatibles:
 from http.server import HTTPServer
 from http.server import BaseHTTPRequestHandler
 import json
+from utils import enviarLog
+from datetime import datetime
 
 class RequestHandler(BaseHTTPRequestHandler):
 
@@ -26,18 +28,21 @@ class RequestHandler(BaseHTTPRequestHandler):
     
 
     def do_GET(self):
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         if self.path == '/history':
             with self.memoria.lock:
                 datos = self.memoria.history[-1*self.n:]
             self.respuesta_json(datos, 200)
+            enviarLog("API HTTP", f"{timestamp}: Se ha solicitado el historial de mensajes por HTTP.")
         
         elif self.path == '/users':
             with self.memoria.lock:
                 datos = self.memoria.users
             self.respuesta_json(datos, 200)
-        
+            enviarLog("API HTTP", f"{timestamp}: Se ha solicitado el listado de usuarios conectados por HTTP.")
         else:
             self.respuesta_json({"error": "Ruta no encontrada. Recuerda sólo usar /history y /users"}, 404)
+            enviarLog("ERROR", f"{timestamp}: Se ha solicitado con un comando incorrecto por HTTP. Se ha respondido con 404.")
 
     def respuesta_json(self, contenido, codigo):
         respuetsa = json.dumps(contenido).encode('utf-8')
@@ -72,7 +77,7 @@ def http_init(instancia_compartida):
     HTTP_PORT = 50000
     print(f"HTTP_server: Iniciando el http_server en el puerto {HTTP_PORT} e ip {HTTP_IP}")
     
-    poblar_memoria_test(instancia_compartida)
+    #poblar_memoria_test(instancia_compartida)
     
     handler_factory = lambda *args, **kwargs: RequestHandler(*args, instancia_compartida=instancia_compartida, **kwargs)
 

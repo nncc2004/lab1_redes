@@ -1,0 +1,9 @@
+[2026-04-01 23:32:57] CONNECT: [ORIGEN: 127.0.0.1:56415] CONNECT usuario = NCHEHADE
+[2026-04-01 23:33:03] MSG: [ORIGEN: 127.0.0.1:52648] MSG NCHEHADE: HOLAA
+[2026-04-01 23:33:20] ERROR: [ORIGEN: 127.0.0.1:59753] ERROR 2026-04-01 23:33:20: Se ha solicitado el listado de usuarios conectados por HTTP.
+[2026-04-01 23:33:25] ERROR: [ORIGEN: 127.0.0.1:49757] ERROR 2026-04-01 23:33:25: Se ha solicitado el historial de mensajes por HTTP.
+[2026-04-01 23:34:38] ERROR: [ORIGEN: 127.0.0.1:63414] ERROR 2026-04-01 23:34:38: Se ha solicitado el listado de usuarios conectados por HTTP.
+[2026-04-01 23:35:16] CONNECT: [ORIGEN: 127.0.0.1:64996] CONNECT usuario = N_Chehade
+[2026-04-01 23:35:19] API HTTP: [ORIGEN: 127.0.0.1:58385] API HTTP 2026-04-01 23:35:19: Se ha solicitado el listado de usuarios conectados por HTTP.
+[2026-04-01 23:35:22] ERROR: [ORIGEN: 127.0.0.1:53240] ERROR 2026-04-01 23:35:22: Se ha solicitado con un comando incorrecto por HTTP. Se ha respondido con 404.
+[2026-04-01 23:35:26] API HTTP: [ORIGEN: 127.0.0.1:56781] API HTTP 2026-04-01 23:35:26: Se ha solicitado el historial de mensajes por HTTP.
